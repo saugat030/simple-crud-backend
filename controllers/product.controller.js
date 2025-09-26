@@ -1,9 +1,15 @@
-const Product = require("../models/product.model");
+// import use gara modern syntax ko lagi.
+import Product from "../models/product.model.js";
+
 
 // Get all products
-const getProducts = async (req, res) => {
+export const getProducts = async (req, res) => {
   try {
     const products = await Product.find({});
+    //validate gara if product is empty 
+    if(!product)
+      return res.status(404).json({success:true, message: "No products found."})
+    
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -11,7 +17,7 @@ const getProducts = async (req, res) => {
 };
 
 // Get single product
-const getProduct = async (req, res) => {
+export const getProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const product = await Product.findById(id);
@@ -25,8 +31,9 @@ const getProduct = async (req, res) => {
 };
 
 // Create product
-const createProduct = async (req, res) => {
+export const createProduct = async (req, res) => {
   try {
+    //prodcut create garnu agadi validation gara incase user le body ma jpt kura halya xa vaney.
     const product = await Product.create(req.body);
     res.status(201).json(product);
   } catch (error) {
@@ -35,7 +42,7 @@ const createProduct = async (req, res) => {
 };
 
 // Update product
-const updateProduct = async (req, res) => {
+export const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const product = await Product.findByIdAndUpdate(id, req.body, {
@@ -51,7 +58,7 @@ const updateProduct = async (req, res) => {
 };
 
 // Delete product
-const deleteProduct = async (req, res) => {
+export const deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const product = await Product.findByIdAndDelete(id);
@@ -64,10 +71,3 @@ const deleteProduct = async (req, res) => {
   }
 };
 
-module.exports = {
-  getProducts,
-  getProduct,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-};
