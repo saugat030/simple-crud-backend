@@ -15,7 +15,7 @@ app.use("/api/products", productRoute);
 app.get("/", (req, res) => {
   res.send("helllo from Node Api Server Satish");
 });
-
+//Never ever do this yo vaneyko timro secret key ko timro password haru hunxa esma eslai jaaile pani .env file ma hala.
 mongoose
   .connect(
     "mongodb+srv://satish:Satish990@backenddb.of31kss.mongodb.net/Node-Api?retryWrites=true&w=majority&appName=BackendDB"
